@@ -1,0 +1,42 @@
+{# --- HERANÇA DE TEMPLATE --- #}
+{# A linha abaixo traz todo o CSS e JS do Bootstrap. É a "forma do bolo". #}
+{% extends "bootstrap/base.html" %}
+
+{# --- BLOCO DE TÍTULO --- #}
+{# Define o texto da aba do navegador #}
+{% block title %}Sistema de Eventos{% endblock %}
+
+{# --- BLOCO DA BARRA DE NAVEGAÇÃO --- #}
+{# Estamos substituindo a barra padrão do Bootstrap pela nossa personalizada #}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container">
+        
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">EventosApp</a>
+        </div>
+        
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{# --- BLOCO DE CONTEÚDO --- #}
+{# Aqui definimos a área onde as outras páginas (como index.html) vão injetar conteúdo #}
+{% block content %}
+<div class="container">
+    {# Este bloco 'page_content' está vazio aqui, esperando para ser preenchido #}
+    {% block page_content %}{% endblock %}
+</div>
+{% endblock %}

@@ -1,0 +1,51 @@
+{# templates/emailsEnviados.html #}
+{% extends "base.html" %}
+
+{% block title %}E-mails Enviados{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+    <h1>Histórico de E-mails Enviados</h1>
+</div>
+
+{# Verifica se existem e-mails na lista #}
+{% if emails_all %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Data/Hora</th>
+                    <th>De</th>
+                    <th>Para</th>
+                    <th>Assunto</th>
+                    <th>Mensagem</th>
+                </tr>
+            </thead>
+            <tbody>
+                {# Loop através da lista 'emails_all' enviada pelo app.py #}
+                {% for email in emails_all %}
+                <tr>
+                    {# Exibe a data. Se quiser formatar bonito, pode usar filtros do Jinja #}
+                    <td>{{ email.timestampEmail }}</td>
+                    
+                    <td>{{ email.fromEmail }}</td>
+                    
+                    {# Exibe destinatários #}
+                    <td>{{ email.toEmail }}</td>
+                    
+                    <td>{{ email.subjectEmail }}</td>
+                    
+                    {# A tag <pre> preserva quebras de linha do texto do e-mail #}
+                    <td><pre style="background: none; border: none; padding: 0;">{{ email.textEmail }}</pre></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <div class="alert alert-info">
+        Nenhum e-mail foi registrado no banco de dados ainda.
+    </div>
+{% endif %}
+
+{% endblock %}

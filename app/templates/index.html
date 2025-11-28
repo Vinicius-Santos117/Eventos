@@ -1,0 +1,47 @@
+{# --- HERANÇA --- #}
+{# Dizemos: "Use o arquivo base.html como esqueleto" #}
+{% extends "base.html" %}
+
+{# --- IMPORTAÇÃO DE MACROS --- #}
+{# Importamos a ferramenta 'wtf' que sabe desenhar formulários Bootstrap sozinha #}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{# --- PREENCHENDO O CONTEÚDO --- #}
+{# Tudo que escrevermos aqui vai cair dentro do bloco 'page_content' do base.html #}
+{% block page_content %}
+<div class="container">
+
+    <div class="page-header">
+        <h1>Sistema de Eventos</h1>
+    </div>
+
+    {# --- LÓGICA DE FLASH MESSAGES --- #}
+    {# O Python manda mensagens de alerta (flash). Aqui nós as capturamos e exibimos. #}
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    <div class="jumbotron">
+        {# --- LÓGICA CONDICIONAL (IF/ELSE) --- #}
+        <h1>Olá, {% if name %}{{ name }}{% else %}Visitante{% endif %}!</h1>
+
+        {% if not known %}
+            <p>Prazer em te conhecer! Você acabou de ser registrado no banco.</p>
+        {% else %}
+            <p>Bom te ver novamente! Buscamos seus dados no banco.</p>
+        {% endif %}
+    </div>
+
+    {# --- RENDERIZAÇÃO DO FORMULÁRIO --- #}
+    <div style="width: 50%;">
+        {# Esta linha sozinha cria todo o HTML do formulário (labels, inputs, botões) #}
+        {{ wtf.quick_form(form) }}
+    </div>
+
+</div>
+{% endblock %}
